@@ -10,7 +10,7 @@ import os
 # --- Email Configuration ---
 SMTP_SERVER = "smtp.gmail.com"
 SMTP_PORT = 587
-SENDER_EMAIL = "adiry@iss.in"  
+SENDER_EMAIL = "aditya.choudhary@isalogistics.in"  
 SENDER_PASSWORD = "ldpq yrck kgyz hdxc"  
 
 # --- File to store bookings ---
