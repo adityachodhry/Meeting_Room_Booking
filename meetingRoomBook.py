@@ -11,7 +11,11 @@ import os
 SMTP_SERVER = "smtp.gmail.com"
 SMTP_PORT = 587
 SENDER_EMAIL = "aditya.choudhary@isalogistics.in"  
-SENDER_PASSWORD = "ldpq yrck kgyz hdxc"  
+SENDER_PASSWORD = "ldpq yrck kgyz hdxc" 
+
+# --- Company Email Domain and Group ---
+COMPANY_DOMAIN = "isalogistics.in"
+GROUP_ID = f"Teamisa@{COMPANY_DOMAIN}"
 
 # --- File to store bookings ---
 BOOKING_FILE = "bookings.json"
@@ -60,7 +64,7 @@ room_bookings = [b for b in all_bookings if b.get("room") == selected_room]
 # Sort by date and time
 room_bookings.sort(key=lambda b: (b.get("date"), b.get("start_time")))
 
-# Display filtered bookings with structured 'To' field
+# Display filtered bookings
 if room_bookings:
     for i, b in enumerate(room_bookings, 1):
         to_list = b.get("to", [])
@@ -68,14 +72,14 @@ if room_bookings:
         booked_by = b.get("booked_by", "(Unknown)")
 
         st.sidebar.markdown(
-    f"""---  
+            f"""---  
 **{i}. 🏢 Booked Meeting Room - `{b['room']}`**  
 👤 **Booked By:** `{booked_by}`  
 📆 **Date:** `{b['date']}`  
 🕒 **Time:** `{b['start_time']} - {b['end_time']}`  
 📧 **To:** {to_emails}
 """
-)
+        )
 else:
     st.sidebar.info("No bookings yet for this room.")
 
@@ -105,13 +109,20 @@ if submitted:
         elif start_dt >= end_dt:
             st.error("❌ End time must be after start time.")
         else:
-            to_list = clean_emails(to_emails)
+            # Clean and separate emails
+            raw_to_list = clean_emails(to_emails)
             cc_list = clean_emails(cc_emails)
 
-            # Combine To and Cc emails
-            all_recipients = to_list + cc_list
+            # Filter internal and external recipients
+            internal_to = [email for email in raw_to_list if email.endswith(f"@{COMPANY_DOMAIN}")]
+            external_to = [email for email in raw_to_list if not email.endswith(f"@{COMPANY_DOMAIN}")]
 
-            # Email content
+            # Replace internal recipients with group ID
+            final_to_list = external_to.copy()
+            if internal_to:
+                final_to_list.append(GROUP_ID)
+
+            # Prepare email content
             content = f"""
 📅 New Meeting Booking
 
@@ -121,19 +132,22 @@ Meeting Room: {room}
 Start Time: {start_dt}
 End Time: {end_dt}
 
-This is an automated meeting notification.
+⚠️ This email is for **testing purposes** for the Meeting Room Booking system.  
+**Please ignore this email.**
+
+(This is an automated notification.)
 """
 
-            # Send to both To and Cc recipients
             msg = EmailMessage()
-            msg["Subject"] = "New Booking Room Update"
+            msg["Subject"] = "New Booking Room Update (Test Email – Please Ignore)"
             msg["From"] = SENDER_EMAIL
-            msg["To"] = ", ".join(to_list)
-            if cc_list:  # Include Cc recipients
+            msg["To"] = ", ".join(final_to_list)
+            if cc_list:
                 msg["Cc"] = ", ".join(cc_list)
             msg["Message-ID"] = f"<{uuid.uuid4()}@booking.local>"
             msg.set_content(content)
 
+            # Send Email
             with smtplib.SMTP(SMTP_SERVER, SMTP_PORT) as server:
                 server.starttls()
                 server.login(SENDER_EMAIL, SENDER_PASSWORD)
@@ -145,11 +159,11 @@ This is an automated meeting notification.
                 "date": str(date),
                 "start_time": str(start_time_input),
                 "end_time": str(end_time_input),
-                "to": to_list,
+                "to": final_to_list,
                 "booked_by": booked_by
             })
 
-            st.success("✅ Meeting booked and email sent successfully!")
+            st.success("✅ Meeting booked and test email sent successfully!")
 
     except Exception as e:
         st.error(f"❌ Failed to send email: {e}")
