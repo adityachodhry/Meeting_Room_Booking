@@ -36,7 +36,7 @@ def load_bookings():
             return json.load(f)
     return []
 
-# --- Helper: Save a new booking ---
+# --- Helper: Save a new booking --- 
 def save_booking(booking):
     bookings = load_bookings()
     bookings.append(booking)
