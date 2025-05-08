@@ -15,7 +15,7 @@ SENDER_PASSWORD = "ldpq yrck kgyz hdxc"
 COMPANY_DOMAIN = "isalogistics.in"
 GROUP_ID = "Teamisa@isalogistics.in"
 
-# --- File to store bookings ---
+# --- File to store bookings --- 
 BOOKING_FILE = "bookings.json"
 
 # --- Meeting Rooms ---
