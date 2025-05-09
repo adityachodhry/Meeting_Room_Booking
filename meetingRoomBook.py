@@ -138,7 +138,6 @@ End Time: {date} at {formatted_end_time}
 
 (This is an automated notification.)
 """
-
             # Send email
             msg = EmailMessage()
             msg["Subject"] = "New Booking Room Update (Test Email – Please Ignore)"
