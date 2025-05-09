@@ -28,7 +28,7 @@ def clean_emails(raw_emails):
         for email in re.split(r'[,\n]+', raw_emails)
         if email.strip() and "@" in email
     ]
-
+ 
 # --- Helper: Load all bookings ---
 def load_bookings():
     if os.path.exists(BOOKING_FILE):
