@@ -6,6 +6,7 @@ import re
 import uuid
 import json
 import os
+from PIL import Image
 
 # --- Email Configuration ---
 SMTP_SERVER = "smtp.gmail.com"
@@ -45,9 +46,14 @@ def save_booking(booking):
 
 # --- Streamlit UI ---
 st.set_page_config(page_title="Meeting Room Booking", page_icon="📅")
+
+# # --- Display Logo ---
+# logo = Image.open("Isa Group Logo.png")
+# st.image(logo, use_column_width=False, width=2000)
+
 st.title("📅 Meeting Room Booking")
 
-# --- Sidebar: Room-wise Booking View ---
+# --- Sidebar: Room-wise Booking View ---S
 st.sidebar.header("📖 View Bookings by Room")
 
 selected_room = st.sidebar.selectbox("🏢 Select Room to View Bookings", meeting_rooms)
