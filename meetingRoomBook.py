@@ -176,4 +176,3 @@ End Time: {date} at {formatted_end_time}
 
 
 
-
