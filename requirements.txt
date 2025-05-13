@@ -1,7 +1,20 @@
-pandas
+# Core libraries
 streamlit
+pandas
 numpy
-dnspython
 requests
-gunicorn
+dnspython
+
+# Backend & deployment
 flask
+gunicorn
+
+# Email handling
+yagmail           # for sending emails easily
+oauth2client      # for Gmail OAuth2 support
+
+# Database
+mysql-connector-python  # for MySQL database interaction
+
+# Date/time utilities
+python-dateutil   # for more robust datetime parsing (optional but useful)
