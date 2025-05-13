@@ -22,7 +22,7 @@ db_port = 3306
 
 
 # --- Meeting Rooms ---
-meeting_rooms = ["Room A", "Room B", "Room C", "Room D"]
+meeting_rooms = ["Room A", "Room B", "Room C"]
 
 # --- Helper: Clean Email Input ---
 def clean_emails(raw_emails):
