@@ -190,13 +190,10 @@ Meeting Room: {room}
 Start Time: {date} at {formatted_start_time}
 End Time: {date} at {formatted_end_time}
 
-⚠️ This email is for **testing purposes**.  
-**Please ignore this email.**
-
 (This is an automated message.)
 """
                 msg = EmailMessage()
-                msg["Subject"] = "New Booking Room Update (Test Email – Please Ignore)"
+                msg["Subject"] = "New Meeting Booking Update"
                 msg["From"] = SENDER_EMAIL
                 msg["To"] = ", ".join(final_to_list)
                 if cc_list:
