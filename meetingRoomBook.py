@@ -222,4 +222,3 @@ End Time: {date} at {formatted_end_time}
 
     except Exception as e:
         st.error(f"❌ Error: {e}")
-        
