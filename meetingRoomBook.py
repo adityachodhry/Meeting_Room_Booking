@@ -20,7 +20,6 @@ db_host = 'tp-vendor-db.ch6c0kme2q7u.ap-south-1.rds.amazonaws.com'
 db_name = 'isa_logistics'
 db_port = 3306
 
-
 # --- Meeting Rooms ---
 meeting_rooms = ["Room A", "Room B", "Room C"]
 
